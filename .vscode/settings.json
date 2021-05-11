@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "usart.h": "c",
+        "usart_common_v2.h": "c",
+        "stat.h": "c",
+        "i2c_common.h": "c",
+        "uart.h": "c",
+        "usart_common_all.h": "c",
+        "stm32f30x_usart.h": "c",
+        "stm32f30x.h": "c",
+        "system_stm32f30x.h": "c",
+        "stm32f30x_hrtim.h": "c",
+        "core_cm4.h": "c"
+    }
+}
