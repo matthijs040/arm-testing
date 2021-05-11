@@ -9,6 +9,18 @@
 #include <errno.h>
 #include <sys/types.h>
 
+/** typedef for specific stub implementors **/
+typedef struct
+{
+    const char *name;
+    int  (*open_r  )( struct _reent *r, const char *path,int flags, int mode );
+    int  (*close_r )( struct _reent *r, int fd );
+    long (*write_r )( struct _reent *r, int fd, const char *ptr, int len );
+    long (*read_r  )( struct _reent *r, int fd, char *ptr, int len );
+} devoptab_t;
+
+/** includes for the stub implementors **/
+#include "stm32_usart.h"
 
 /** Global newlib stub implementations **/
 
@@ -33,22 +45,14 @@ int _fstat(char *file) {
 // Is a terminal?
 void _isatty() { }
 
-/** typedef for specific stub implementors **/
-typedef struct 
-{
-    const char *name;
-    int  (*open_r  )( struct _reent *r, const char *path,int flags, int mode );
-    int  (*close_r )( struct _reent *r, int fd );
-    long (*write_r )( struct _reent *r, int fd, const char *ptr, int len );
-    long (*read_r  )( struct _reent *r, int fd, char *ptr, int len );
-} devoptab_t;
+
 
 const devoptab_t *devoptab_list[] = 
 {
-    NULL,    /* standard input */
-    NULL,    /* standard output */
-    NULL,    /* standard error */
-    NULL     /* terminates the list */
+    &usart_dev,     /* standard input */
+    &usart_dev,     /* standard output */
+    &usart_dev,     /* standard error */
+    NULL            /* terminates the list */
 };
 
 long _write_r ( struct _reent *ptr, int fd, const void *buf, size_t cnt )

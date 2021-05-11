@@ -28,6 +28,7 @@ int main(void)
 
     // stdin = uart_stdin; 
     // stdout = stderr = uart_stdout;
+    
     fputs("Hello world!", stdout);
     
     return 0;
