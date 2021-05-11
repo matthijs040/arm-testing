@@ -1,4 +1,5 @@
-#include "stm32f30x.h"
+#include "inc/stm32f30x.h"
+#include "inc/newlib_sys.h"
 
 
 #include <stdio.h>
@@ -19,22 +20,12 @@
 //     return (uint8_t)uart_getc();   
 // }
 
-
 int main(void)
 {
+
     // stdin = uart_stdin; 
     // stdout = stderr = uart_stdout;
-    // puts("Hello world!");
-    USART_InitTypeDef usart_initialization;
-    usart_initialization.USART_BaudRate             = 115200;
-    usart_initialization.USART_HardwareFlowControl  = USART_HardwareFlowControl_None;
-    usart_initialization.USART_Mode                 = USART_Mode_Tx;
-    usart_initialization.USART_Parity               = USART_Parity_No;
-    usart_initialization.USART_StopBits             = USART_StopBits_1;
-    usart_initialization.USART_WordLength           = USART_WordLength_8b;
-
-    USART_Init(USART2, &usart_initialization);
-    usart_initialization.USART_BaudRate++;
-
-    while(true);
+    puts("Hello world!");
+    
+    return EXIT_SUCCESS;
 }
