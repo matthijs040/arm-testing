@@ -1,4 +1,4 @@
-#include "inc/stm32f30x.h"
+// #include "inc/stm32f30x.h"
 #include "inc/newlib_sys.h"
 
 
@@ -6,6 +6,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+
+// exit:
+// void _exit(int status) { while(true); }
 
 // static const int uart_stdout(const char c, FILE* stream)
 // {
@@ -25,7 +28,7 @@ int main(void)
 
     // stdin = uart_stdin; 
     // stdout = stderr = uart_stdout;
-    puts("Hello world!");
+    fputs("Hello world!", stdout);
     
-    return EXIT_SUCCESS;
+    return 0;
 }

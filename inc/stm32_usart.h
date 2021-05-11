@@ -1,7 +1,7 @@
-#ifndef STM32_USART_H
-#define STM32_USART_H
-
+#pragma once
 #include <stdint.h>
+#include "newlib_sys.h"
+#include "stm32_usart_impl.h"
 
 typedef enum {
     none = 0,
@@ -9,11 +9,10 @@ typedef enum {
     even = 2,
 } parity_t;
 
-void usart_init(uint8_t usart, uint32_t baudrate, parity_t parity);
-
-void usart_send(char* string);
-
-void usart_recv();
-
-
-#endif
+static devoptab_t usart_dev {
+    .name = "usart_dev",
+    .open_r = open_uart,
+    .close_r = close_uart,
+    .write_r = write_uart,
+    .read_r = read_uart,
+};
