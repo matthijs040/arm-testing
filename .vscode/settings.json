@@ -12,6 +12,7 @@
         "system_stm32f30x.h": "c",
         "stm32f30x_hrtim.h": "c",
         "core_cm4.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "picolibc.h": "c"
     }
 }

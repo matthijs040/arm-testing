@@ -8,11 +8,3 @@ typedef enum {
     odd = 1,
     even = 2,
 } parity_t;
-
-static devoptab_t usart_dev =  {
-    .name = "usart_dev",
-    .open_r = open_uart,
-    .close_r = close_uart,
-    .write_r = write_uart,
-    .read_r = read_uart,
-};

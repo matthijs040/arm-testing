@@ -1,34 +1,24 @@
-// #include "inc/stm32f30x.h"
-#include "inc/newlib_sys.h"
-
-
 #include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
 
-// exit:
-// void _exit(int status) { while(true); }
+static const int uart_put(char c, FILE* f)
+{ return 0; }
 
-// static const int uart_stdout(const char c, FILE* stream)
-// {
-//     if(c == '\n')
-//         uart_putc('\r');
-//     uart_putc(c);
-//     return 0;
-// }
-// 
-// static const int uart_stdin(FILE* stream) 
-// {
-//     return (uint8_t)uart_getc();   
-// }
+static const int uart_get(FILE* f)
+{ return 0; }
+
+static const int uart_flush(FILE* f)
+{ return 0; }
+
+
+FILE usart2_stdio = FDEV_SETUP_STREAM(uart_put, uart_get, uart_flush, _FDEV_SETUP_RW);
+struct __file *const __iob[] = {
+    &usart2_stdio,
+    &usart2_stdio,
+    &usart2_stdio
+};
 
 int main(void)
-{
-
-    // stdin = uart_stdin; 
-    // stdout = stderr = uart_stdout;
-    
+{  
     fputs("Hello world!", stdout);
     
     return 0;

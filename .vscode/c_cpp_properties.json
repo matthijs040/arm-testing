@@ -4,8 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                // "~/code/lib/STM32F30x_DSP_StdPeriph_Lib_V1.2.3/Libraries/**"
-                "/usr/local/picolibc/arm-none-eabi/include/**"
+                "/usr/local/picolibc/arm-none-eabi/include/*"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/arm-none-eabi-gcc",
