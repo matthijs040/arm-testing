@@ -7,8 +7,25 @@
 
 int  open_uart( const char *path, int flags, int mode )
 {
+    switch (flags)
+    {
+    case O_RDONLY:
+        /* Initialize uart in a read mode.*/
+        break;
+    
+    case O_WRONLY:
+        /* Initialize uart in a write mode.*/
+        break;
 
+    case O_RDWR:
+        break;
 
+    default:
+        errno = EINVAL;
+        return -1;
+        break;
+    }
+    
     return 0;
 }
 
