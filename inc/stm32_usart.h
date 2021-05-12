@@ -15,4 +15,4 @@ static devoptab_t usart_dev =  {
     .close_r = close_uart,
     .write_r = write_uart,
     .read_r = read_uart,
-}
+};

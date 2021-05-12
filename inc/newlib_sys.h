@@ -13,10 +13,10 @@
 typedef struct
 {
     const char *name;
-    int  (*open_r  )( struct _reent *r, const char *path,int flags, int mode );
-    int  (*close_r )( struct _reent *r, int fd );
-    long (*write_r )( struct _reent *r, int fd, const char *ptr, int len );
-    long (*read_r  )( struct _reent *r, int fd, char *ptr, int len );
+    int  (*open_r  )( const char *path,int flags, int mode );
+    int  (*close_r )( int fd );
+    long (*write_r )( int fd, const char *ptr, int len );
+    long (*read_r  )( int fd, char *ptr, int len );
 } devoptab_t;
 
 /** includes for the stub implementors **/
@@ -55,18 +55,18 @@ const devoptab_t *devoptab_list[] =
     NULL            /* terminates the list */
 };
 
-long _write_r ( struct _reent *ptr, int fd, const void *buf, size_t cnt )
+long _write_r ( int fd, const void *buf, size_t cnt )
 {
-    return devoptab_list[fd]->write_r( ptr, fd, (const char*)buf, cnt );
+    return devoptab_list[fd]->write_r( fd, (const char*)buf, cnt );
 }
 
 
-long _read_r ( struct _reent *ptr, int fd, const void *buf, size_t cnt )
+long _read_r ( int fd, const void *buf, size_t cnt )
 {
-    return devoptab_list[fd]->read_r( ptr, fd, (char*)buf, cnt );
+    return devoptab_list[fd]->read_r( fd, (char*)buf, cnt );
 }
 
-int _open_r ( struct _reent *ptr, const char *file , int flags, int mode )
+int _open_r ( const char *file , int flags, int mode )
 {
     (void)flags;
     (void)mode;
@@ -88,15 +88,14 @@ int _open_r ( struct _reent *ptr, const char *file , int flags, int mode )
     
     /* if we found the requested file/device,then invoke the device’s open_r() method */
     if( fd != -1 ) 
-        devoptab_list[fd]->open_r( ptr, file, flags, mode );
+        devoptab_list[fd]->open_r( file, flags, mode );
     /* it doesn’t exist! */
-    else 
-        ptr->_errno = ENODEV;
+
         
     return fd;
 }
 
-long _close_r ( struct _reent *ptr,int fd ) 
+long _close_r ( int fd ) 
 {
-    return devoptab_list[fd]->close_r( ptr, fd );
+    return devoptab_list[fd]->close_r( fd );
 }
