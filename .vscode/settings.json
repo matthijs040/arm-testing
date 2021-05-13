@@ -13,6 +13,7 @@
         "stm32f30x_hrtim.h": "c",
         "core_cm4.h": "c",
         "stdbool.h": "c",
-        "picolibc.h": "c"
+        "picolibc.h": "c",
+        "cstdio": "cpp"
     }
 }

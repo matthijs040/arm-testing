@@ -4,7 +4,12 @@
 int main(void)
 {  
     uart_init();
-    fputs("Hello world!", stdout);
+    while (true)
+    {
+        fputs("Hello world!", stdout);
+    }
+    
+
     
     return 0;
 }

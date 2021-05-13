@@ -1,5 +1,5 @@
 CC=arm-none-eabi-gcc 
-CC_FLAGS=-Wall -Wpedantic -Werror -std=gnu18 -Os -mcpu=cortex-m4 -mthumb --specs=picolibc.specs  # --specs=nosys.specs # ARM-specific flags  
+CC_FLAGS=-Wall -Wpedantic -Werror -g -std=gnu18 -Os -mcpu=cortex-m4 -mthumb --specs=picolibc.specs  # --specs=nosys.specs # ARM-specific flags  
 CC_IN_FILES=main.c
 CC_OUT_FILE=main.bin
 CC_DEFINES=
