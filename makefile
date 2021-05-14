@@ -1,9 +1,14 @@
 CC=arm-none-eabi-gcc 
-CC_FLAGS=-Wall -Wpedantic -Werror -g -std=gnu18 -Os -mcpu=cortex-m4 -mthumb --specs=picolibc.specs  # --specs=nosys.specs # ARM-specific flags  
-CC_IN_FILES=main.c
-CC_OUT_FILE=main.bin
-CC_DEFINES=
-UL=st-flash
+
+FP_FLAGS	?= -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ARCH_FLAGS	= -mthumb -mcpu=cortex-m4 $(FP_FLAGS)
+
+CC_FLAGS	=-std=gnu18 -ggdb3 -Os -Wall -Wpedantic -Werror -mcpu=cortex-m4 -mthumb --specs=picolibc.specs 
+CC_IN_FILES	=main.c
+CC_OUT_FILE	=main.elf
+CC_DEFINES	=
+
+UL			=st-flash
 
 CC_LINK_SRC+=
 CC_LINK_SRC+=
