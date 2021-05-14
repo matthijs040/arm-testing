@@ -30,7 +30,7 @@ endif
 
 PREFIX		?= arm-none-eabi-
 
-CC		:= $(PREFIX)gcc
+CC		:= $(PREFIX)gcc --specs=picolibc.specs
 CXX		:= $(PREFIX)g++
 LD		:= $(PREFIX)gcc
 AR		:= $(PREFIX)ar
@@ -57,7 +57,7 @@ ifeq ($(strip $(OPENCM3_DIR)),)
 # user has not specified the library path, so we try to detect it
 
 # where we search for the library
-LIBPATHS := ./libopencm3 ../../../../libopencm3 ../../../../../libopencm3
+LIBPATHS := ./libopencm3 ../../../../libopencm3 ../../../../../libopencm3 ../../lib/libopencm3
 
 OPENCM3_DIR := $(wildcard $(LIBPATHS:=/locm3.sublime-project))
 OPENCM3_DIR := $(firstword $(dir $(OPENCM3_DIR)))
@@ -102,7 +102,7 @@ EXAMPLES_SCRIPT_DIR	= $(OPENCM3_DIR)/../scripts
 TGT_CFLAGS	+= $(OPT) $(CSTD) $(DEBUG)
 TGT_CFLAGS	+= $(ARCH_FLAGS)
 TGT_CFLAGS	+= -Wextra -Wshadow -Wimplicit-function-declaration
-TGT_CFLAGS	+= -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes
+TGT_CFLAGS	+= -Wredundant-decls -Wmissing-prototypes -Werror
 TGT_CFLAGS	+= -fno-common -ffunction-sections -fdata-sections
 
 ###############################################################################

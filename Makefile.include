@@ -7,13 +7,13 @@ ARCH_FLAGS	= -mthumb -mcpu=cortex-m4 $(FP_FLAGS)
 ################################################################################
 # OpenOCD specific variables
 
-OOCD		    ?= openocd
-OOCD_INTERFACE	?= stlink-v2
-OOCD_TARGET	    ?= stm32f3x
+# OOCD		    ?= openocd
+# OOCD_INTERFACE	?= stlink-v2
+# OOCD_TARGET	    ?= stm32f3x
 
 ################################################################################
 # texane/stlink specific variables
-#STLINK_PORT	?= :4242
+STLINK_PORT	?= :4242
 
 
 include rules.mk

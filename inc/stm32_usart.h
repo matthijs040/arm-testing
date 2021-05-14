@@ -185,8 +185,9 @@ static void uart_init()
 } 
 
 
-static const int uart_put(char c, FILE* f)
+static int uart_put(char c, FILE* f)
 {
+    (void)f;
     if( are_bits_set(ISR_ADDR, USART_ISR_TXE) )
     {
         set_register(TDR_ADDR, (register_t)c);
@@ -196,13 +197,15 @@ static const int uart_put(char c, FILE* f)
     return 0; 
 }
 
-static const int uart_get(FILE* f)
+static int uart_get(FILE* f)
 { 
+    (void)f;
     return 0; 
 }
 
-static const int uart_flush(FILE* f)
+static int uart_flush(FILE* f)
 { 
+    (void)f;
     return 0; 
 }
 
