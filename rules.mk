@@ -32,7 +32,7 @@ PREFIX		?= arm-none-eabi-
 
 CC		:= $(PREFIX)gcc --specs=picolibc.specs
 CXX		:= $(PREFIX)g++
-LD		:= $(PREFIX)gcc
+LD		:= $(PREFIX)gcc --specs=picolibc.specs
 AR		:= $(PREFIX)ar
 AS		:= $(PREFIX)as
 OBJCOPY		:= $(PREFIX)objcopy
