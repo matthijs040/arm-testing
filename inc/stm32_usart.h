@@ -190,7 +190,7 @@ static int uart_put(char c, FILE* f)
     (void)f;
     if( are_bits_set(ISR_ADDR, USART_ISR_TXE) )
     {
-        set_register(TDR_ADDR, (register_t)c);
+        set_register(TDR_ADDR, c);
         return 1;
     }
 

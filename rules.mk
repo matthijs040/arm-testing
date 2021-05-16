@@ -30,9 +30,9 @@ endif
 
 PREFIX		?= arm-none-eabi-
 
-CC		:= $(PREFIX)gcc --specs=picolibc.specs
+CC		:= $(PREFIX)gcc#--specs=picolibc.specs
 CXX		:= $(PREFIX)g++
-LD		:= $(PREFIX)gcc --specs=picolibc.specs
+LD		:= $(PREFIX)gcc#--specs=picolibc.specs
 AR		:= $(PREFIX)ar
 AS		:= $(PREFIX)as
 OBJCOPY		:= $(PREFIX)objcopy
