@@ -4,7 +4,6 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/local/picolibc/arm-none-eabi/include/*",
                 "~/code/lib/libopencm3/include/**"
             ],
             "defines": [],
