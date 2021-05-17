@@ -43,7 +43,7 @@ static void i2c_setup(void)
 
 static void clock_setup(void)
 {
-	rcc_clock_setup_hsi(&rcc_hsi_configs[RCC_CLOCK_HSI_64MHZ]);
+	rcc_clock_setup_hsi(&rcc_hsi_configs[RCC_CLOCK_HSE8_72MHZ]);
 }
 
 int _write(int file, char *ptr, int len)
@@ -77,7 +77,11 @@ int main(void)
 	if( i2c_read(117, false, &who_is_he, 1 ) )
 		printf("read request to: 'who_am_i' register returned: %i\n", who_is_he);
 	else
+	{
 		puts("read request to MPU failed");
+		printf("registers I2C1_ISR: '%li' I2C_CR1: '%li',  I2C_CR2 '%li'\n", I2C1_ISR, I2C1_CR1, I2C1_CR2 );
+	}
+
 
 	return EXIT_SUCCESS;
 }
