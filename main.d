@@ -16,4 +16,25 @@ main.o: main.c ../../lib/libopencm3//include/libopencm3/stm32/rcc.h \
  ../../lib/libopencm3//include/libopencm3/stm32/gpio.h \
  ../../lib/libopencm3//include/libopencm3/stm32/f3/gpio.h \
  ../../lib/libopencm3//include/libopencm3/stm32/common/gpio_common_f234.h \
- ../../lib/libopencm3//include/libopencm3/stm32/common/gpio_common_all.h
+ ../../lib/libopencm3//include/libopencm3/stm32/common/gpio_common_all.h \
+ ../../lib/libopencm3//include/libopencm3/stm32/usart.h \
+ ../../lib/libopencm3//include/libopencm3/stm32/f3/usart.h \
+ ../../lib/libopencm3//include/libopencm3/stm32/common/usart_common_all.h \
+ ../../lib/libopencm3//include/libopencm3/stm32/common/usart_common_v2.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdarg.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_types.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_pthreadtypes.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/types.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/stdio.h

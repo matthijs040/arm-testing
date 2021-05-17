@@ -44,7 +44,7 @@ STYLECHECKFLAGS	:= --no-tree -f --terse --mailback
 STYLECHECKFILES	:= $(shell find . -name '*.[ch]')
 OPT		:= -Os
 DEBUG		:= -ggdb3
-CSTD		?= -std=c99
+CSTD		?= -std=c18
 
 
 ###############################################################################
@@ -102,7 +102,7 @@ EXAMPLES_SCRIPT_DIR	= $(OPENCM3_DIR)/../scripts
 TGT_CFLAGS	+= $(OPT) $(CSTD) $(DEBUG)
 TGT_CFLAGS	+= $(ARCH_FLAGS)
 TGT_CFLAGS	+= -Wextra -Wshadow -Wimplicit-function-declaration
-TGT_CFLAGS	+= -Wredundant-decls -Wmissing-prototypes -Werror
+TGT_CFLAGS	+= -Wredundant-decls -Werror#-Wmissing-prototypes
 TGT_CFLAGS	+= -fno-common -ffunction-sections -fdata-sections
 
 ###############################################################################
