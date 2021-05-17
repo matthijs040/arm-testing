@@ -44,8 +44,8 @@ static void i2c_setup(void)
 
 static bool i2c_read(uint8_t initial_register, bool is_alt_addr_pin_set, uint8_t* data, size_t number_of_consecutive_registers)
 {
-    if(!i2c_is_start(I2C1))
-        return false;   
+    // if(!i2c_is_start(I2C1))
+    //     return false;   
     
     i2c_send_start(I2C1);
   

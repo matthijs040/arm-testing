@@ -68,7 +68,7 @@ int _write(int file, char *ptr, int len)
 int main(void)
 {
 	clock_setup();
-	gpio_setup();
+	// gpio_setup();
 	usart_setup();
 	puts("Hello, we're running");
 	i2c_setup();
