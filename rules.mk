@@ -30,9 +30,9 @@ endif
 
 PREFIX		?= arm-none-eabi-
 
-CC		:= $(PREFIX)gcc#--specs=picolibc.specs
+CC		:= $(PREFIX)gcc --specs=nano.specs
 CXX		:= $(PREFIX)g++
-LD		:= $(PREFIX)gcc#--specs=picolibc.specs
+LD		:= $(PREFIX)gcc --specs=nano.specs
 AR		:= $(PREFIX)ar
 AS		:= $(PREFIX)as
 OBJCOPY		:= $(PREFIX)objcopy
@@ -102,7 +102,7 @@ EXAMPLES_SCRIPT_DIR	= $(OPENCM3_DIR)/../scripts
 TGT_CFLAGS	+= $(OPT) $(CSTD) $(DEBUG)
 TGT_CFLAGS	+= $(ARCH_FLAGS)
 TGT_CFLAGS	+= -Wextra -Wshadow -Wimplicit-function-declaration
-TGT_CFLAGS	+= -Wredundant-decls -Werror#-Wmissing-prototypes
+TGT_CFLAGS	+= -Wredundant-decls -Werror# -Wmissing-prototypes
 TGT_CFLAGS	+= -fno-common -ffunction-sections -fdata-sections
 
 ###############################################################################
