@@ -12,7 +12,7 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/usart.h>
 
-int _write(int file, char *ptr, int len);
+
 
 static void usart_setup(void)
 {
@@ -34,21 +34,4 @@ static void usart_setup(void)
 
 	/* Finally enable the USART. */
 	usart_enable(USART2);
-}
-
-int _write(int file, char *ptr, int len)
-{
-        int i;
-
-        if (file == 1) {
-                for (i = 0; i < len; i++) {
-			if (ptr[i] == '\n') {
-				usart_send_blocking(USART2, '\r');
-			}
-                        usart_send_blocking(USART2, ptr[i]);
-		}
-                return i;
-        }
-        errno = EIO;
-        return -1;
 }

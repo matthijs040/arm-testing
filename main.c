@@ -4,6 +4,7 @@
 #endif
 
 #include "inc/usart.h"
+#include "inc/i2c.h"
 
 #include <errno.h>
 #include <stdio.h>
@@ -38,10 +39,7 @@ static void i2c_setup(void)
 	i2c_set_7bit_addr_mode(I2C1);
 	i2c_peripheral_enable(I2C1);
 }
-**/
 
-
-/**
 static void gpio_setup(void)
 {
 	rcc_periph_clock_enable(RCC_GPIOE);
@@ -50,13 +48,11 @@ static void gpio_setup(void)
 		GPIO14 | GPIO15);
 }
 **/
-
-/**
 static void clock_setup(void)
 {
 	rcc_clock_setup_hsi(&rcc_hsi_configs[RCC_CLOCK_HSI_64MHZ]);
 }
-**/
+
 #define I2C_ACC_ADDR 0x19
 #define I2C_MAG_ADDR 0x1E
 #define ACC_STATUS 0x27
@@ -69,32 +65,38 @@ static void clock_setup(void)
 #define ACC_OUT_X_L_A 0x28
 #define ACC_OUT_X_H_A 0x29
 
+int _write(int file, char *ptr, int len)
+{
+    int i;
+    if (file == 1) 
+    {
+        for (i = 0; i < len; i++) 
+        {
+		    if (ptr[i] == '\n') 
+		    	usart_send_blocking(USART2, '\r');
+		    
+            usart_send_blocking(USART2, ptr[i]);
+	    }
+        return i;
+    }
+    errno = EIO;
+    return -1;
+}
+
+
 int main(void)
 {
-	// clock_setup();
+	clock_setup();
 	// gpio_setup();
 	usart_setup();
 	puts("Hello, we're running");
-	// i2c_setup();
-	// uint8_t cmd = ACC_CTRL_REG1_A;
-	// uint8_t data;
-	// i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-	// cmd = ACC_CTRL_REG4_A;
-	// i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-	// int16_t acc_x;
-// 
-	// while (1) {
-// 
-	// 	cmd = ACC_STATUS;
-	// 	i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-	// 	cmd = ACC_OUT_X_L_A;
-	// 	i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-	// 	acc_x = data;
-	// 	cmd = ACC_OUT_X_H_A;
-	// 	i2c_transfer7(I2C1, I2C_ACC_ADDR, &cmd, 1, &data, 1);
-	// 	acc_x |= ((uint16_t)data << 8);
-	// 	printf("data was %d\n", acc_x);
-	// }
+	i2c_setup();
+
+	uint8_t who_is_he = 0;
+	if( i2c_read(117, false, &who_is_he, 1 ) )
+		printf("read request to: 'who_am_i' register returned: %i\n", who_is_he);
+	else
+		puts("read request to MPU failed");
 
 	return EXIT_SUCCESS;
 }
