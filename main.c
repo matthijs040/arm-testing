@@ -39,31 +39,12 @@ static void i2c_setup(void)
 	i2c_set_7bit_addr_mode(I2C1);
 	i2c_peripheral_enable(I2C1);
 }
-
-static void gpio_setup(void)
-{
-	rcc_periph_clock_enable(RCC_GPIOE);
-	gpio_mode_setup(GPIOE, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE,
-		GPIO8 | GPIO9 | GPIO10 | GPIO11 | GPIO12 | GPIO13 |
-		GPIO14 | GPIO15);
-}
 **/
+
 static void clock_setup(void)
 {
 	rcc_clock_setup_hsi(&rcc_hsi_configs[RCC_CLOCK_HSI_64MHZ]);
 }
-
-#define I2C_ACC_ADDR 0x19
-#define I2C_MAG_ADDR 0x1E
-#define ACC_STATUS 0x27
-#define ACC_CTRL_REG1_A 0x20
-#define ACC_CTRL_REG1_A_ODR_SHIFT 4
-#define ACC_CTRL_REG1_A_ODR_MASK 0xF
-#define ACC_CTRL_REG1_A_XEN (1 << 0)
-#define ACC_CTRL_REG4_A 0x23
-
-#define ACC_OUT_X_L_A 0x28
-#define ACC_OUT_X_H_A 0x29
 
 int _write(int file, char *ptr, int len)
 {
@@ -87,7 +68,7 @@ int _write(int file, char *ptr, int len)
 int main(void)
 {
 	clock_setup();
-	// gpio_setup();
+	gpio_setup();
 	usart_setup();
 	puts("Hello, we're running");
 	i2c_setup();
