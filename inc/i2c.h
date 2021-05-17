@@ -40,12 +40,9 @@ static void i2c_setup(void)
 
 #define MPU_I2C_ADDR_LOW 104 // 0b1101000   if AD0 pin on the mpu is low
 #define MPU_I2C_ADDR_SET 105 // 0b1101001   if AD0 pin on the mpu is set
-#define MPU_WAI_REG 0x75
 
 static bool i2c_read(uint8_t initial_register, bool is_alt_addr_pin_set, uint8_t* data, size_t number_of_consecutive_registers)
-{
-    // i2c_send_start(I2C1);
-  
+{  
     if(is_alt_addr_pin_set)
         i2c_transfer7(I2C1, MPU_I2C_ADDR_SET, &initial_register , sizeof(initial_register) , data, number_of_consecutive_registers );
     else
