@@ -50,7 +50,7 @@ CSTD		?= -std=c18
 ###############################################################################
 # Source files
 
-OBJS		+= $(BINARY).o $(SOURCES).o
+OBJS		+= $(BINARY).o 
 
 
 ifeq ($(strip $(OPENCM3_DIR)),)
@@ -81,9 +81,9 @@ endef
 
 ifeq ($(strip $(DEVICE)),)
 # Old style, assume LDSCRIPT exists
-DEFS		+= -I$(OPENCM3_DIR)/include
-LDFLAGS		+= -L$(OPENCM3_DIR)/lib
-LDLIBS		+= -l$(LIBNAME)
+DEFS		+= -I$(OPENCM3_DIR)/include 
+LDFLAGS		+= -L$(OPENCM3_DIR)/lib 
+LDLIBS		+= -l$(LIBNAME) 
 LDSCRIPT	?= $(BINARY).ld
 else
 # New style, assume device is provided, and we're generating the rest.
@@ -123,7 +123,7 @@ TGT_CPPFLAGS	+= $(DEFS)
 ###############################################################################
 # Linker flags
 
-TGT_LDFLAGS		+= --static -nostartfiles
+TGT_LDFLAGS		+= --static -nostartfiles 
 TGT_LDFLAGS		+= -T$(LDSCRIPT)
 TGT_LDFLAGS		+= $(ARCH_FLAGS) $(DEBUG)
 TGT_LDFLAGS		+= -Wl,-Map=$(*).map -Wl,--cref
@@ -206,7 +206,7 @@ print-%:
 
 %.o: %.c
 	@#printf "  CC      $(*).c\n"
-	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -o $(*).o -c $(*).c
+	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -o $(*).o -c $(*).c 
 
 %.o: %.cxx
 	@#printf "  CXX     $(*).cxx\n"
