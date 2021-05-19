@@ -5,6 +5,7 @@
 
 #include "inc/usart.h"
 #include "inc/i2c.h"
+#include "inc/mpu6050.h"
 
 #include <errno.h>
 #include <stdio.h>
@@ -64,33 +65,9 @@ int _write(int file, char *ptr, int len)
     return -1;
 }
 
-#define WHOAMI_REGISTER		0x75
-#define MPU6050_IDENTITY 	104
-#define MPU6050_INITIAL_READOUT_REGISTER	0x3B
-#define sizeof_array(array) ( sizeof(array) / sizeof(array[0]) )
+#define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
+#define is_bit_set(reg, bit)	( reg & ( 1 << bit ))
 
-typedef enum
-{
-	accel_x_out_h = 0,
-	accel_x_out_l = 1,
-	accel_y_out_h, 		
-	accel_y_out_l, 		
-	accel_z_out_h, 		
-	accel_z_out_l, 		
-	temp_y_out_h, 		
-	temp_y_out_l, 		
-	gyro_x_out_h, 		
-	gyro_x_out_l, 		
-	gyro_y_out_h, 		
-	gyro_y_out_l, 		
-	gyro_z_out_h, 		
-	gyro_z_out_l, 		
-	ext1, 				
-	ext2, 				
-	ext3, 				
-	ext4,
-	MPU_READING_SIZE=18
-}mpu_reading_t;
 
 
 int main(void)
@@ -99,23 +76,23 @@ int main(void)
 	usart_setup();
 	puts("Hello, we're running");
 	i2c_setup();
-	uint8_t who_am_i = 0;
-	if( i2c_read(WHOAMI_REGISTER, false, &who_am_i, 1 ) 
-		&& who_am_i == MPU6050_IDENTITY )
+
+
+	if( mpu_read_wai_register() )
 	{
 		puts("Initial read request returned correctly. Starting readouts.");
 
-		uint8_t readouts[MPU_READING_SIZE];
+		mpu_init();
 
 		while (true)
 		{
-			i2c_read(MPU6050_INITIAL_READOUT_REGISTER, false, readouts, 1);
-			printf("accelerometer readings are: x:%i, y:%i, z:%i\n", 
-					(uint16_t)readouts[accel_x_out_h], 
-					(uint16_t)readouts[accel_y_out_h], 
-					(uint16_t)readouts[accel_z_out_h] );
+			mpu_reading_t reading = mpu_read_sensors(); 
 
-			for (int i = 0; i < 4000000; i++) /* Wait a bit. */
+			printf("accelerometer readings are: x:%hu, y:%hu, z:%hu\n", reading.accel.x, reading.accel.y, reading.accel.z );
+			printf("gyroscope readings are: x:%hu, y:%hu, z:%hu\n", reading.gyro.x, reading.gyro.y, reading.gyro.z); 
+			
+
+			for (int i = 0; i < 2000000; i++) /* Wait a bit. */
 			__asm__("nop");
 		}
 	}
