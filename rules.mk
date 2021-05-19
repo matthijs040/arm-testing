@@ -22,7 +22,7 @@
 # Be silent per default, but 'make V=1' will show all compiler calls.
 ifneq ($(V),1)
 Q		:= @
-NULL		:= 2>/dev/null
+NULL	:= 2>/dev/null
 endif
 
 ###############################################################################
@@ -50,8 +50,14 @@ CSTD		?= -std=c18
 ###############################################################################
 # Source files
 
-OBJS		+= $(BINARY).o 
+define uniq =
+  $(eval seen :=)
+  $(foreach _,$1,$(if $(filter $_,${seen}),,$(eval seen += $_)))
+  ${seen}
+endef
 
+
+OBJS		+= ./*.o
 
 ifeq ($(strip $(OPENCM3_DIR)),)
 # user has not specified the library path, so we try to detect it
@@ -206,7 +212,7 @@ print-%:
 
 %.o: %.c
 	@#printf "  CC      $(*).c\n"
-	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -o $(*).o -c $(*).c 
+	$(Q)$(CC) $(TGT_CFLAGS) $(CFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -c $(*).c $(SRC_DIR)/*.c 
 
 %.o: %.cxx
 	@#printf "  CXX     $(*).cxx\n"
