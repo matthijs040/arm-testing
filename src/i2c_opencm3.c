@@ -6,6 +6,8 @@
 
 #include <string.h>
 
+#define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
+
 static void i2c_read(uint8_t i2c_addr, uint8_t initial_register, uint8_t* data, size_t registers_to_read)
 {  
     i2c_transfer7(I2C1, i2c_addr, &initial_register , sizeof(initial_register) , data, registers_to_read );
@@ -45,7 +47,7 @@ i2c_link_t i2c_setup(void)
 
 	i2c_peripheral_enable(I2C1);
     
-    i2c_link_t ret = { i2c_read, i2c_write};   
+    i2c_link_t ret = { NULL, i2c_read, i2c_write};   
     return ret; 
 }
 

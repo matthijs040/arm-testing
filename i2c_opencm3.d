@@ -35,4 +35,6 @@ i2c_opencm3.o: src/i2c_opencm3.c src/../inc/i2c_opencm3.h \
  ../../lib/libopencm3//include/libopencm3/stm32/gpio.h \
  ../../lib/libopencm3//include/libopencm3/stm32/f3/gpio.h \
  ../../lib/libopencm3//include/libopencm3/stm32/common/gpio_common_f234.h \
- ../../lib/libopencm3//include/libopencm3/stm32/common/gpio_common_all.h
+ ../../lib/libopencm3//include/libopencm3/stm32/common/gpio_common_all.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h \
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/string.h
