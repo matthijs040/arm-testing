@@ -85,7 +85,7 @@ gyro_reading_t mpu_read_gyroscope()
 {
     uint8_t data[sizeof(gyro_reading_t)];
     i2c_read(MPU_REGISTER_GYRO_X_OUT_H, false, data, sizeof_array(data));
-    gyro_reading_t reading = { (uint16_t)data[0] + data[1],(uint16_t)data[2] + data[3], (uint16_t)data[4] + data[5]};
+    gyro_reading_t reading = { init_uint16(data, 0, 1),init_uint16(data, 2, 3), init_uint16(data, 4, 5)};
     return reading;
 }
 
@@ -93,7 +93,7 @@ temp_reading_t mpu_read_thermometer()
 {
     uint8_t data[sizeof(temp_reading_t)];
     i2c_read(MPU_REGISTER_TEMP_OUT_H, false, data, sizeof_array(data));
-    temp_reading_t reading = { (temp_reading_t)data[0] + data[1]};
+    temp_reading_t reading = { init_uint16(data, 0, 1)};
     return reading;
 }
 
