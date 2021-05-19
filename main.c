@@ -88,11 +88,18 @@ int main(void)
 		{
 			mpu_reading_t reading = mpu_read_sensors(); 
 
-			printf("accelerometer readings are: x:%hu, y:%hu, z:%hu\n", reading.accel.x, reading.accel.y, reading.accel.z );
-			printf("gyroscope readings are: x:%hu, y:%hu, z:%hu\n", reading.gyro.x, reading.gyro.y, reading.gyro.z); 
+			printf("Ax:%3hu, Ay:%3hu, Az:%3hu\n", reading.accel.x, reading.accel.y, reading.accel.z );
+			//printf("Gx:%3hu, Gy:%3hu, Gz:%3hu\n", reading.gyro.x, reading.gyro.y, reading.gyro.z);
 			
+			// printf("other readings are: ");
+			// // Data array might have decayed into a regular pointer. resulting in size 1.
+			// for(uint8_t r = 0; r < sizeof_array(reading.ext.data); r++)
+			// {
+			// 	printf("%d ", reading.ext.data[r]);
+			// }
+			// putc('\n', stdout);
 
-			for (int i = 0; i < 2000000; i++) /* Wait a bit. */
+			for (int i = 0; i < 1000000; i++) /* Wait a bit. */
 			__asm__("nop");
 		}
 	}

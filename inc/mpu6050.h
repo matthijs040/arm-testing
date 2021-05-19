@@ -2,6 +2,7 @@
 
 #include "i2c.h"
 
+/** MPU register definitions **/
 #define MPU_REGISTER_ACCEL_X_OUT_H      0x3B
 #define MPU_REGISTER_ACCEL_Y_OUT_H      0x3D
 #define MPU_REGISTER_ACCEL_Z_OUT_H      0x3F
@@ -17,6 +18,7 @@
 #define MPU_REGISTER_WHOAMI             0x75
 #define MPU_WHOAMI_RESPONSE             104
 
+/** MPU sensor-readout types **/ 
 typedef struct {
     uint16_t x;
     uint16_t y;
@@ -38,10 +40,18 @@ typedef struct {
 typedef struct {
     accel_reading_t     accel;
     gyro_reading_t      gyro;
+    temp_reading_t      temp;
     ext_sens_reading_t  ext;
 } mpu_reading_t;
 
+/** MPU configuration types **/
+
+typedef struct {
+
+} mpu_configs_t;
+
 #define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
+#define init_uint16(array, index_high, index_low)    ( (uint16_t)(array[index_high]  << 8) | array[index_low] )
 
 void mpu_init()
 {
@@ -67,7 +77,7 @@ accel_reading_t mpu_read_accelerometer()
 {
     uint8_t data[sizeof(accel_reading_t)];
     i2c_read(MPU_REGISTER_ACCEL_X_OUT_H, false, data, sizeof_array(data));
-    accel_reading_t reading = { (uint16_t)data[0],(uint16_t)data[2], (uint16_t)data[4]};
+    accel_reading_t reading = { init_uint16(data, 0, 1),init_uint16(data, 2, 3), init_uint16(data, 4, 5)};
     return reading;
 }
 
@@ -75,7 +85,15 @@ gyro_reading_t mpu_read_gyroscope()
 {
     uint8_t data[sizeof(gyro_reading_t)];
     i2c_read(MPU_REGISTER_GYRO_X_OUT_H, false, data, sizeof_array(data));
-    gyro_reading_t reading = { (uint16_t)data[0],(uint16_t)data[2], (uint16_t)data[4]};
+    gyro_reading_t reading = { (uint16_t)data[0] + data[1],(uint16_t)data[2] + data[3], (uint16_t)data[4] + data[5]};
+    return reading;
+}
+
+temp_reading_t mpu_read_thermometer()
+{
+    uint8_t data[sizeof(temp_reading_t)];
+    i2c_read(MPU_REGISTER_TEMP_OUT_H, false, data, sizeof_array(data));
+    temp_reading_t reading = { (temp_reading_t)data[0] + data[1]};
     return reading;
 }
 
@@ -90,6 +108,6 @@ ext_sens_reading_t mpu_read_ext_data()
 
 mpu_reading_t mpu_read_sensors()
 {
-    mpu_reading_t reading = { mpu_read_accelerometer(), mpu_read_gyroscope(), mpu_read_ext_data() };
+    mpu_reading_t reading = { mpu_read_accelerometer(), mpu_read_gyroscope(), mpu_read_thermometer(), mpu_read_ext_data() };
     return reading;
 }
