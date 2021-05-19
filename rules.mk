@@ -56,7 +56,6 @@ define uniq =
   ${seen}
 endef
 
-
 OBJS		+= ./*.o
 
 ifeq ($(strip $(OPENCM3_DIR)),)
@@ -133,7 +132,7 @@ TGT_LDFLAGS		+= --static -nostartfiles
 TGT_LDFLAGS		+= -T$(LDSCRIPT)
 TGT_LDFLAGS		+= $(ARCH_FLAGS) $(DEBUG)
 TGT_LDFLAGS		+= -Wl,-Map=$(*).map -Wl,--cref
-TGT_LDFLAGS		+= -Wl,--gc-sections
+TGT_LDFLAGS		+= -Wl,--gc-sections -u _printf_float 
 ifeq ($(V),99)
 TGT_LDFLAGS		+= -Wl,--print-gc-sections
 endif

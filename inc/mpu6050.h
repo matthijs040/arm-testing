@@ -23,25 +23,25 @@
 #define MPU_I2C_ADDR_SET 105 // 0b1101001   if AD0 pin on the mpu is set
 #define MPU_I2C_ADDR(alt) (alt ? MPU_I2C_ADDR_SET : MPU_I2C_ADDR_LOW)
 
-#define MPU_ACCEL_SCALE_2G      16384
-#define MPU_ACCEL_SCALE_4G      8192
-#define MPU_ACCEL_SCALE_8G      4096
-#define MPU_ACCEL_SCALE_16G     2048
+#define MPU_ACCEL_SCALE_2G      16384.0
+#define MPU_ACCEL_SCALE_4G      8192.0
+#define MPU_ACCEL_SCALE_8G      4096.0
+#define MPU_ACCEL_SCALE_16G     2048.0
 
 /** MPU sensor-readout types **/ 
 typedef struct {
-    uint16_t x;
-    uint16_t y;
-    uint16_t z;
+    int16_t x;
+    int16_t y;
+    int16_t z;
 } accel_reading_t;
 
 typedef struct {
-    uint16_t x;
-    uint16_t y;
-    uint16_t z;
+    int16_t x;
+    int16_t y;
+    int16_t z;
 } gyro_reading_t;
 
-typedef uint16_t temp_reading_t;
+typedef int16_t temp_reading_t;
 
 typedef struct {
     uint8_t data[24];

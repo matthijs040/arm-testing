@@ -59,8 +59,8 @@ int main(void)
 		{
 			mpu_reading_t reading = mpu_read_sensors(i2c, mpu_alt_addr); 
 
-			printf("Ax:%5d, Ay:%5d, Az:%5d\n", (int16_t)reading.accel.x, (int16_t)reading.accel.y, (int16_t)reading.accel.z );
-			printf("Gx:%5d, Gy:%5d, Gz:%5d\n", (int16_t)reading.gyro.x, (int16_t)reading.gyro.y, (int16_t)reading.gyro.z);
+			printf("Ax:%f, Ay:%f, Az:%f\n", reading.accel.x / MPU_ACCEL_SCALE_2G, reading.accel.y / MPU_ACCEL_SCALE_2G, reading.accel.z / MPU_ACCEL_SCALE_2G );
+			printf("Gx:%5d, Gy:%5d, Gz:%5d\n", reading.gyro.x, reading.gyro.y, reading.gyro.z);
 			printf("T:%3d\n", reading.temp);
 			
 			// printf("other readings are: ");
