@@ -43,11 +43,8 @@ main.o: main.c inc/usart.h \
  ../../lib/libopencm3//include/libopencm3/stm32/common/usart_common_all.h \
  ../../lib/libopencm3//include/libopencm3/stm32/common/usart_common_v2.h \
  inc/i2c_opencm3.h inc/i2c.h \
- /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h \
- /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/string.h \
- ../../lib/libopencm3//include/libopencm3/stm32/i2c.h \
- ../../lib/libopencm3//include/libopencm3/stm32/f3/i2c.h \
- ../../lib/libopencm3//include/libopencm3/stm32/common/i2c_common_v2.h \
- inc/mpu6050.h \
  /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h \
- /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/stdlib.h
+ /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/stdlib.h \
+ inc/mpu6050.h ../../lib/libopencm3//include/libopencm3/stm32/i2c.h \
+ ../../lib/libopencm3//include/libopencm3/stm32/f3/i2c.h \
+ ../../lib/libopencm3//include/libopencm3/stm32/common/i2c_common_v2.h

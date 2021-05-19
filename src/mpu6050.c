@@ -1,4 +1,6 @@
 #include "../inc/mpu6050.h"
+#include <string.h>
+#include <stdio.h>
 
 void mpu_init(i2c_link_t i2c, bool alt_addr)
 {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "i2c_opencm3.h"
+#include <stdbool.h>
 
 /** MPU register definitions **/
 #define MPU_REGISTER_ACCEL_X_OUT_H      0x3B
@@ -21,6 +22,11 @@
 #define MPU_I2C_ADDR_LOW 104 // 0b1101000   if AD0 pin on the mpu is low
 #define MPU_I2C_ADDR_SET 105 // 0b1101001   if AD0 pin on the mpu is set
 #define MPU_I2C_ADDR(alt) (alt ? MPU_I2C_ADDR_SET : MPU_I2C_ADDR_LOW)
+
+#define MPU_ACCEL_SCALE_2G      16384
+#define MPU_ACCEL_SCALE_4G      8192
+#define MPU_ACCEL_SCALE_8G      4096
+#define MPU_ACCEL_SCALE_16G     2048
 
 /** MPU sensor-readout types **/ 
 typedef struct {
@@ -50,9 +56,27 @@ typedef struct {
 
 /** MPU configuration types **/
 
-typedef struct {
+typedef enum {
+    g2,
+    g4,
+    g8,
+    g16 
+} accel_sensitivity_t;
 
-} mpu_configs_t;
+typedef enum {
+    degPs250,
+    degPs500,
+    degPs1000,
+    degPs2000,
+} gyro_sensitivity_t;
+
+typedef struct {
+} mpu_comm_config_t;
+
+typedef struct {
+    accel_sensitivity_t acc_sens;
+    gyro_sensitivity_t  gyr_sens;
+} mpu_sensor_config_t;
 
 #define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
 #define init_uint16(array, index_high, index_low)    ( (uint16_t)(array[index_high]  << 8) | array[index_low] )

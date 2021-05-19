@@ -14,6 +14,7 @@
         "core_cm4.h": "c",
         "stdbool.h": "c",
         "picolibc.h": "c",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "rcc.h": "c"
     }
 }

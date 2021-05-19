@@ -1,24 +1,18 @@
 #pragma once
 
-// For intellisense.
-#ifndef STM32F3
-#define STM32F3
-#endif
+#include <stdint.h>	// uint8_t
+#include <stdlib.h> // size_t
 
-#define NOP __asm__("nop");
-#define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
+typedef enum {
+	kb100s,
+	kb400s,
+	kb1000s,
+	kb3200s
+} i2c_speed_t;
 
+typedef struct{
+	struct i2c_link_t (*init)();
 
-#include <stdio.h>
-#include <string.h>
-
-#include <libopencm3/stm32/rcc.h>
-#include <libopencm3/stm32/i2c.h>
-#include <libopencm3/stm32/gpio.h>
-
-
-
-typedef struct i2c_link {
 	void (*read)(uint8_t i2c_device_address
 				,uint8_t i2c_device_register_address
 				,uint8_t* data_to_read
