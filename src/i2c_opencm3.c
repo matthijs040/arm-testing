@@ -1,5 +1,9 @@
 #include "../inc/i2c_opencm3.h"
 
+#ifndef STM32F3
+#define STM32F3
+#endif
+
 #include <libopencm3/stm32/i2c.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
@@ -47,7 +51,7 @@ i2c_link_t i2c_setup(void)
 
 	i2c_peripheral_enable(I2C1);
     
-    i2c_link_t ret = { NULL, i2c_read, i2c_write};   
+    i2c_link_t ret = { i2c_setup, i2c_read, i2c_write};   
     return ret; 
 }
 

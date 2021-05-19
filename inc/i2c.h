@@ -10,8 +10,8 @@ typedef enum {
 	kb3200s
 } i2c_speed_t;
 
-typedef struct{
-	struct i2c_link_t (*init)();
+typedef struct i2c_link_t{
+	struct i2c_link_t (*init)(void);
 
 	void (*read)(uint8_t i2c_device_address
 				,uint8_t i2c_device_register_address

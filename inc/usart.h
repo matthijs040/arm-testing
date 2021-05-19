@@ -12,8 +12,6 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/usart.h>
 
-
-
 static void usart_setup(void)
 {
 	/* Enable clocks for GPIO port A (for GPIO_USART2_TX) and USART2. */
