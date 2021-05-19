@@ -77,13 +77,13 @@ int main(void)
 	puts("Hello, we're running");
 	i2c_link_t i2c = i2c_setup();
 	const bool mpu_alt_addr = false;
-
+	mpu_init(i2c, mpu_alt_addr);
 
 	if( mpu_read_wai_register(i2c, mpu_alt_addr) )
 	{
 		puts("Initial read request returned correctly. Starting readouts.");
 
-		mpu_init(i2c, mpu_alt_addr);
+
 
 		while (true)
 		{
