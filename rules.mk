@@ -50,7 +50,7 @@ CSTD		?= -std=c18
 ###############################################################################
 # Source files
 
-OBJS		+= $(BINARY).o
+OBJS		+= $(BINARY).o $(SOURCES).o
 
 
 ifeq ($(strip $(OPENCM3_DIR)),)

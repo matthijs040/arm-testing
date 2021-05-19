@@ -4,7 +4,7 @@
 #endif
 
 #include "inc/usart.h"
-#include "inc/i2c.h"
+#include "inc/i2c_opencm3.h"
 #include "inc/mpu6050.h"
 
 #include <errno.h>
@@ -75,22 +75,23 @@ int main(void)
 	clock_setup();
 	usart_setup();
 	puts("Hello, we're running");
-	i2c_setup();
+	i2c_link_t i2c = i2c_setup();
+	const bool mpu_alt_addr = false;
 
 
-	if( mpu_read_wai_register() )
+	if( mpu_read_wai_register(i2c, mpu_alt_addr) )
 	{
 		puts("Initial read request returned correctly. Starting readouts.");
 
-		mpu_init();
+		mpu_init(i2c, mpu_alt_addr);
 
 		while (true)
 		{
-			mpu_reading_t reading = mpu_read_sensors(); 
+			mpu_reading_t reading = mpu_read_sensors(i2c, mpu_alt_addr); 
 
 			printf("Ax:%5d, Ay:%5d, Az:%5d\n", (int16_t)reading.accel.x, (int16_t)reading.accel.y, (int16_t)reading.accel.z );
 			printf("Gx:%5d, Gy:%5d, Gz:%5d\n", (int16_t)reading.gyro.x, (int16_t)reading.gyro.y, (int16_t)reading.gyro.z);
-			printf("T:%3hu\n", reading.temp);
+			printf("T:%3d\n", reading.temp);
 			
 			// printf("other readings are: ");
 			// // Data array might have decayed into a regular pointer. resulting in size 1.
