@@ -78,19 +78,24 @@ typedef struct {
     gyro_sensitivity_t  gyr_sens;
 } mpu_sensor_config_t;
 
+typedef struct mpu_t {
+    const i2c_link_t i2c_conn;
+    const bool alt_addr;
+}mpu_t;
+
 #define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
 #define init_uint16(array, index_high, index_low)    ( (uint16_t)(array[index_high]  << 8) | array[index_low] )
 
-void mpu_init(i2c_link_t i2c, bool alt_addr);
+mpu_t mpu_init(i2c_link_t i2c, bool alt_addr);
 
-bool mpu_read_wai_register(i2c_link_t i2c, bool alt_addr);
+bool mpu_read_wai_register(const mpu_t mpu);
 
-accel_reading_t mpu_read_accelerometer(i2c_link_t i2c, bool alt_addr);
+accel_reading_t mpu_read_accelerometer(const mpu_t mpu);
 
-gyro_reading_t mpu_read_gyroscope(i2c_link_t i2c, bool alt_addr);
+gyro_reading_t mpu_read_gyroscope(const mpu_t mpu);
 
-temp_reading_t mpu_read_thermometer(i2c_link_t i2c, bool alt_addr);
+temp_reading_t mpu_read_thermometer(const mpu_t mpu);
 
-ext_sens_reading_t mpu_read_ext_data(i2c_link_t i2c, bool alt_addr);
+ext_sens_reading_t mpu_read_ext_data(const mpu_t mpu);
 
-mpu_reading_t mpu_read_sensors(i2c_link_t i2c, bool alt_addr);
+mpu_reading_t mpu_read_sensors(const mpu_t mpu);

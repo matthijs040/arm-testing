@@ -49,15 +49,15 @@ int main(void)
 	puts("Hello, we're running");
 	i2c_link_t i2c = i2c_setup();
 	const bool mpu_alt_addr = false;
-	mpu_init(i2c, mpu_alt_addr);
+	mpu_t sensor = mpu_init(i2c, mpu_alt_addr);
 
-	if( mpu_read_wai_register(i2c, mpu_alt_addr) )
+	if( mpu_read_wai_register(sensor) )
 	{
 		puts("Initial read request returned correctly. Starting readouts.");
 
 		while (true)
 		{
-			mpu_reading_t reading = mpu_read_sensors(i2c, mpu_alt_addr); 
+			mpu_reading_t reading = mpu_read_sensors(sensor); 
 
 			printf("Ax:%f, Ay:%f, Az:%f\n", reading.accel.x / MPU_ACCEL_SCALE_2G, reading.accel.y / MPU_ACCEL_SCALE_2G, reading.accel.z / MPU_ACCEL_SCALE_2G );
 			printf("Gx:%5d, Gy:%5d, Gz:%5d\n", reading.gyro.x, reading.gyro.y, reading.gyro.z);
