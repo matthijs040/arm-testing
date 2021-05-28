@@ -31,6 +31,7 @@ i2c_link_t i2c_setup(void)
 	rcc_periph_clock_enable(RCC_I2C1);
 	rcc_periph_clock_enable(RCC_GPIOB);
 	rcc_set_i2c_clock_hsi(I2C1);
+	
 
     i2c_reset(I2C1);
 	// Setup GPIO pin 6 and 7 on GPIO port B for alternate function. 

@@ -6,7 +6,7 @@
                 "${workspaceFolder}/**",
                 "~/code/lib/libopencm3/include/**"
             ],
-            "defines": [],
+            "defines": ["STM32F3"],
             "compilerPath": "/usr/bin/arm-none-eabi-gcc",
             "cStandard": "gnu17",
             "cppStandard": "gnu++14",

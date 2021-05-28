@@ -18,7 +18,7 @@
 
 static void clock_setup(void)
 {
-	rcc_clock_setup_hsi(&rcc_hsi_configs[RCC_CLOCK_HSE8_72MHZ]);
+	rcc_clock_setup_hsi(&rcc_hsi_configs[RCC_CLOCK_HSI_48MHZ]);
 }
 
 int _write(int file, char *ptr, int len)
