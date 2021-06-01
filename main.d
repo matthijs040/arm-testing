@@ -45,6 +45,7 @@ main.o: main.c inc/usart.h \
  inc/i2c_opencm3.h inc/i2c.h \
  /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h \
  /usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/stdlib.h \
- inc/mpu6050.h ../../lib/libopencm3//include/libopencm3/stm32/i2c.h \
+ inc/mpu6050.h inc/lsm303DLHC.h \
+ ../../lib/libopencm3//include/libopencm3/stm32/i2c.h \
  ../../lib/libopencm3//include/libopencm3/stm32/f3/i2c.h \
  ../../lib/libopencm3//include/libopencm3/stm32/common/i2c_common_v2.h

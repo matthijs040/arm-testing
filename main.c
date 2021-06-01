@@ -6,6 +6,7 @@
 #include "inc/usart.h"
 #include "inc/i2c_opencm3.h"
 #include "inc/mpu6050.h"
+#include "inc/lsm303DLHC.h"
 
 #include <errno.h>
 #include <stdio.h>
@@ -48,6 +49,12 @@ int main(void)
 	usart_setup();
 	puts("Hello, we're running");
 	i2c_link_t i2c = i2c_setup();
+
+	lsm303_t lsm_sensor = lsm_init(i2c, configurations[enabled]);
+	(void)lsm_sensor;
+
+
+
 	const bool mpu_alt_addr = false;
 	mpu_t sensor = mpu_init(i2c, mpu_alt_addr);
 
