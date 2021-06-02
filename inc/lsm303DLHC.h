@@ -57,27 +57,6 @@
 #include "i2c.h"
 #include <stdbool.h>
 
-
-typedef struct lsm_acc_reading_t {
-    const int16_t x;
-    const int16_t y;
-    const int16_t z;
-} lsm_acc_reading_t;
-
-typedef struct lsm_mag_reading_t {
-    const int16_t x;
-    const int16_t y;
-    const int16_t z;
-} lsm_mag_reading_t;
-
-typedef const int16_t lsm_tmp_reading_t;
-
-typedef struct lsm_reading_t {
-    const lsm_acc_reading_t acc;
-    const lsm_mag_reading_t mag;
-    const lsm_tmp_reading_t tmp;
-} lsm_reading_t;
-
 // Typedefs for configuring the sensor:
 
 // Control register 1 A:
@@ -99,19 +78,20 @@ typedef enum lsm_data_rate_t {
 #define CR1A__Yen   0x02
 #define CR1A__Zen   0x04
 #define CR1A__LPen  0x08
-
+#define CR1A__NONE  0x00
 
 // Control register 2 A: 
 #define CR2A__HPM_OFFSET 4
-typedef enum CR2__HPM
+typedef enum CR2A__HPM
 {
     CR2A__HPM_reset_reading           = ( 0b00 << CR2A__HPM_OFFSET ),
     CR2A__HPM_with_reference_signal   = ( 0b01 << CR2A__HPM_OFFSET ),
     CR2A__HPM_normal_mode             = ( 0b10 << CR2A__HPM_OFFSET ),
     CR2A__HPM_autoreset_on_interrupt  = ( 0b11 << CR2A__HPM_OFFSET ),
-} CR2__HPM;
+} CR2A__HPM;
 
-#define CTRL_REG2_A__FDS 0x8
+#define CR2A__FDS   0x8
+#define CR2A__NONE  0x0
 
 
 #define CR3A__I1_CLICK    0x80
@@ -121,40 +101,47 @@ typedef enum CR2__HPM
 #define CR3A__I1_DRDY2    0x08
 #define CR3A__I1_WTM      0x04
 #define CR3A__I1_OVERRUN  0x02
-
+#define CR3A__NONE        0x0
 
 #define CR4A__BDU    0x80
 #define CR4A__BLE    0x40
 
-#define LSM_FS_OFFSET 4
+#define CR4A__FS_OFFSET 4
 typedef enum CR4A_FS {
-    LSM_FS_g2  = ( 0b00 << LSM_FS_OFFSET ) ,
-    LSM_FS_g4  = ( 0b01 << LSM_FS_OFFSET ) ,
-    LSM_FS_g8  = ( 0b10 << LSM_FS_OFFSET ) ,
-    LSM_FS_g16 = ( 0b11 << LSM_FS_OFFSET )
+    CR4A__FS_g2  = ( 0b00 << CR4A__FS_OFFSET ) ,
+    CR4A__FS_g4  = ( 0b01 << CR4A__FS_OFFSET ) ,
+    CR4A__FS_g8  = ( 0b10 << CR4A__FS_OFFSET ) ,
+    CR4A__FS_g16 = ( 0b11 << CR4A__FS_OFFSET )
 } CR4A_FS;
 
-#define CR4__HR     0x08
-#define CR4__SIM    0x01
+#define CR4A__HR     0x08
+#define CR4A__SIM    0x01
+#define CR4A__NONE   0x0
 
+#define CR5A__BOOT       0x80
+#define CR5A__FIFO_EN    0x40
+#define CR5A__LIR_INT1   0x08
+#define CR5A__D4D_INT1   0x04
+#define CR5A__LIR_INT2   0x02
+#define CR5A__D4D_INT2   0x01
+#define CR5A__NONE       0x0
 
-#define CR5__BOOT       0x80
-#define CR5__FIFO_EN    0x40
-#define CR5__LIR_INT1   0x08
-#define CR5__D4D_INT1   0x04
-#define CR5__LIR_INT2   0x02
-#define CR5__D4D_INT2   0x01
-
-#define CR6__I2_CLICKen 0x80
-#define CR6__I2_INT1    0x40
-#define CR6__I2_INT2    0x20
-#define CR6__BOOT_I1    0x10
-#define CR6__P2_ACT     0x08
-#define CR6__H_LACTIVE  0x02
+#define CR6A__I2_CLICKen 0x80
+#define CR6A__I2_INT1    0x40
+#define CR6A__I2_INT2    0x20
+#define CR6A__BOOT_I1    0x10
+#define CR6A__P2_ACT     0x08
+#define CR6A__H_LACTIVE  0x02
+#define CR6A__NONE       0x0
 
 
 typedef struct lsm_config_t {
-    const uint8_t ctrl_registers[6];
+    const uint8_t CR1A;
+    const uint8_t CR2A;
+    const uint8_t CR3A;
+    const uint8_t CR4A;
+    const uint8_t CR5A;
+    const uint8_t CR6A;
 } lsm_config_t;
 
 typedef enum lsm_configurations {
@@ -166,20 +153,20 @@ typedef enum lsm_configurations {
 static const lsm_config_t configurations[LSM_CONFIGURATIONS] = 
 { // Default configuration. Sensor disabled.
     {  
-        CR1A__ODR_Hz0 | CR1A__LPen | CR1A__Zen | CR1A__Yen | CR1A__Xen,
-        CR2A__HPM_reset_reading,
-        0,
-        LSM_FS_g2,
-        0,
-        0
+        .CR1A = CR1A__ODR_Hz0 | CR1A__LPen | CR1A__Zen | CR1A__Yen | CR1A__Xen,
+        .CR2A = CR2A__HPM_reset_reading,
+        .CR3A = CR3A__NONE,
+        .CR4A = CR4A__FS_g2,
+        .CR5A = CR5A__NONE,
+        .CR6A = CR6A__NONE
     },  // Enabled Configuration. Sensor enabled at 100Hz
     { 
-        CR1A__ODR_Hz100 | CR1A__LPen | CR1A__Zen | CR1A__Yen | CR1A__Xen,
-        CR2A__HPM_reset_reading,
-        0,
-        LSM_FS_g2,
-        0,
-        0
+        .CR1A = CR1A__ODR_Hz100 | CR1A__LPen | CR1A__Zen | CR1A__Yen | CR1A__Xen,
+        .CR2A = CR2A__HPM_reset_reading,
+        .CR3A = CR3A__NONE,
+        .CR4A = CR4A__FS_g2,
+        .CR5A = CR5A__NONE,
+        .CR6A = CR6A__NONE
     }
 };
 
@@ -188,6 +175,27 @@ typedef struct lsm303_t {
     const i2c_link_t i2c_conn;
     const lsm_config_t config;
 }lsm303_t;
+
+
+typedef struct lsm_acc_reading_t {
+    int16_t x;
+    int16_t y;
+    int16_t z;
+} lsm_acc_reading_t;
+
+typedef struct lsm_mag_reading_t {
+    const int16_t x;
+    const int16_t y;
+    const int16_t z;
+} lsm_mag_reading_t;
+
+typedef int16_t lsm_tmp_reading_t;
+
+typedef struct lsm_reading_t {
+    const lsm_acc_reading_t acc;
+    const lsm_mag_reading_t mag;
+    const lsm_tmp_reading_t tmp;
+} lsm_reading_t;
 
 
 lsm303_t lsm_init(const i2c_link_t i2c, const lsm_config_t configuration);

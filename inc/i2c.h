@@ -13,15 +13,15 @@ typedef enum {
 typedef struct i2c_link_t{
 	struct i2c_link_t (*init)(void);
 
-	void (*read)(uint8_t i2c_device_address
-				,uint8_t i2c_device_register_address
-				,uint8_t* data_to_read
-				,size_t number_of_consecutive_registers_to_read);
+	void (*read)(const uint8_t i2c_device_address
+				,const uint8_t i2c_device_register_address
+				,uint8_t* const data_to_read
+				,const size_t number_of_consecutive_registers_to_read);
 	
-	void (*write)(uint8_t i2c_device_address
-				, uint8_t i2c_device_register_address
-				, uint8_t* data_to_write
-				, size_t number_of_consecutive_registers_to_write);
+	void (*write)(const uint8_t i2c_device_address
+				, const uint8_t i2c_device_register_address
+				, const uint8_t* const data_to_write
+				, const size_t number_of_consecutive_registers_to_write);
 } i2c_link_t;
 
 // Should be used in conjunction with a setup function.

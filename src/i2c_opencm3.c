@@ -12,12 +12,12 @@
 
 #define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
 
-static void i2c_read(uint8_t i2c_addr, uint8_t initial_register, uint8_t* data, size_t registers_to_read)
+static void i2c_read(const uint8_t i2c_addr, const uint8_t initial_register, uint8_t* const data, const size_t registers_to_read)
 {  
     i2c_transfer7(I2C1, i2c_addr, &initial_register , sizeof(initial_register) , data, registers_to_read );
 }
 
-static void i2c_write(uint8_t i2c_addr, uint8_t initial_register, uint8_t* data, size_t registers_to_write)
+static void i2c_write(const uint8_t i2c_addr, const uint8_t initial_register, const uint8_t* const data, const size_t registers_to_write)
 {
 	uint8_t bytes_to_write[registers_to_write + sizeof(initial_register)];
 	bytes_to_write[0] = initial_register;

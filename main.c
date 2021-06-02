@@ -50,8 +50,8 @@ int main(void)
 	puts("Hello, we're running");
 	i2c_link_t i2c = i2c_setup();
 
-	lsm303_t lsm_sensor = lsm_init(i2c, configurations[enabled]);
-	(void)lsm_sensor;
+	// lsm303_t lsm_sensor = lsm_init(i2c, configurations[enabled]);
+	// (void)lsm_sensor;
 
 
 
