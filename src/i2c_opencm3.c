@@ -44,7 +44,9 @@ i2c_link_t i2c_setup(void)
 	i2c_enable_analog_filter(I2C1);
 	i2c_set_digital_filter(I2C1, 0);
 	// HSI is at 8Mhz 
-	i2c_set_speed(I2C1, i2c_speed_fm_400k, 64);
+
+	uint32_t i2c_clk_freq = rcc_get_i2c_clk_freq(I2C1);
+	i2c_set_speed(I2C1, i2c_speed_fm_400k, i2c_clk_freq / 1000000); // 64?
 	//configure No-Stretch CR1 (only relevant in slave mode)
 	i2c_enable_stretching(I2C1);
 	//addressing mode

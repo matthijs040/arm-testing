@@ -50,9 +50,9 @@ int main(void)
 	puts("Hello, we're running");
 	i2c_link_t i2c = i2c_setup();
 
-	lsm303_t lsm_sensor = lsm_init(i2c, configurations[enabled]);
-	lsm_acc_reading_t lsm_reading = lsm_read_acc(lsm_sensor);
-	printf("lsm data: x %d, y %d, z %d", lsm_reading.x, lsm_reading.y, lsm_reading.z );
+	// lsm303_t lsm_sensor = lsm_init(i2c, configurations[enabled]);
+	// lsm_acc_reading_t lsm_reading = lsm_read_acc(lsm_sensor);
+	// printf("lsm data: x %d, y %d, z %d", lsm_reading.x, lsm_reading.y, lsm_reading.z );
 
 
 
