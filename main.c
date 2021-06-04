@@ -11,6 +11,8 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include "inc/acc_att_est.h"
 
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/usart.h>
@@ -67,9 +69,22 @@ int main(void)
 		{
 			mpu_reading_t reading = mpu_read_sensors(sensor); 
 
-			printf("Ax:%f, Ay:%f, Az:%f\n", reading.accel.x / MPU_ACCEL_SCALE_2G, reading.accel.y / MPU_ACCEL_SCALE_2G, reading.accel.z / MPU_ACCEL_SCALE_2G );
-			printf("Gx:%5d, Gy:%5d, Gz:%5d\n", reading.gyro.x, reading.gyro.y, reading.gyro.z);
-			printf("T:%3d\n", reading.temp);
+			float 	x_acc = reading.accel.x / MPU_ACCEL_SCALE_2G, 
+					y_acc = reading.accel.y / MPU_ACCEL_SCALE_2G, 
+					z_acc = reading.accel.z / MPU_ACCEL_SCALE_2G;
+
+			// float	x_gyr = reading.gyro.x / MPU_GYRO_SCALE_0, 
+			// 		y_gyr = reading.gyro.y / MPU_GYRO_SCALE_0, 
+			// 		z_gyr = reading.gyro.z / MPU_GYRO_SCALE_0;
+
+			float sum_acc = fabs(x_acc) +  fabs(y_acc) +  fabs(z_acc); 
+			attitude_t att = estimate_attitude(x_acc, y_acc, z_acc);
+
+			printf("AccX:%f, AccY:%f, AccZ:%f\n", x_acc, y_acc, z_acc );
+			printf("AttX:%f, AttY:%f, AttZ:%f\n", att.r, att.p, att.y );
+			printf("As:%f",sum_acc);
+			// printf("Gx:%f, Gy:%f, Gz:%f\n", x_gyr, y_gyr, z_gyr );
+			// printf("T:%3d\n", reading.temp);
 			
 			// printf("other readings are: ");
 			// // Data array might have decayed into a regular pointer. resulting in size 1.

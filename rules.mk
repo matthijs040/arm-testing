@@ -87,8 +87,8 @@ endef
 ifeq ($(strip $(DEVICE)),)
 # Old style, assume LDSCRIPT exists
 DEFS		+= -I$(OPENCM3_DIR)/include 
-LDFLAGS		+= -L$(OPENCM3_DIR)/lib 
-LDLIBS		+= -l$(LIBNAME) 
+LDFLAGS		+= -L$(OPENCM3_DIR)/lib
+LDLIBS		+= -l$(LIBNAME) -lm
 LDSCRIPT	?= $(BINARY).ld
 else
 # New style, assume device is provided, and we're generating the rest.
@@ -134,13 +134,13 @@ TGT_LDFLAGS		+= $(ARCH_FLAGS) $(DEBUG)
 TGT_LDFLAGS		+= -Wl,-Map=$(*).map -Wl,--cref
 TGT_LDFLAGS		+= -Wl,--gc-sections -u _printf_float 
 ifeq ($(V),99)
-TGT_LDFLAGS		+= -Wl,--print-gc-sections
+TGT_LDFLAGS		+= -Wl,--print-gc-sections 
 endif
 
 ###############################################################################
 # Used libraries
 
-LDLIBS		+= -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group
+LDLIBS		+= -Wl,--start-group -lc -lgcc -lm -lnosys -Wl,--end-group
 
 ###############################################################################
 ###############################################################################

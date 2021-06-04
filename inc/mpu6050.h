@@ -28,6 +28,11 @@
 #define MPU_ACCEL_SCALE_8G      4096.0
 #define MPU_ACCEL_SCALE_16G     2048.0
 
+#define MPU_GYRO_SCALE_0        131.0
+#define MPU_GYRO_SCALE_1        65.5
+#define MPU_GYRO_SCALE_2        32.8
+#define MPU_GYRO_SCALE_3        16.4
+
 /** MPU sensor-readout types **/ 
 typedef struct {
     int16_t x;

@@ -15,6 +15,7 @@
         "stdbool.h": "c",
         "picolibc.h": "c",
         "cstdio": "cpp",
-        "rcc.h": "c"
+        "rcc.h": "c",
+        "cmath": "cpp"
     }
 }
