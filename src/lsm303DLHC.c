@@ -1,7 +1,7 @@
 #include "../inc/lsm303DLHC.h"
 
-#define sizeof_array(array)		( sizeof(array) / sizeof(array[0]) )
-#define init_uint16(array, index_high, index_low)    ( (uint16_t)(array[index_high]  << 8) | array[index_low] )
+#define sizeof_array(array)		                    ( sizeof(array) / sizeof(array[0]) )
+#define init_uint16(array, index_high, index_low)   ( (uint16_t)(array[index_high]  << 8) | array[index_low] )
 
 lsm303_t lsm_init(const i2c_link_t i2c, const lsm_config_t configuration)
 {
