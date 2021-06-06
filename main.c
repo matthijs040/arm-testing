@@ -77,12 +77,12 @@ int main(void)
 			// 		y_gyr = reading.gyro.y / MPU_GYRO_SCALE_0, 
 			// 		z_gyr = reading.gyro.z / MPU_GYRO_SCALE_0;
 
-			float sum_acc = fabs(x_acc) +  fabs(y_acc) +  fabs(z_acc); 
+			// float sum_acc = fabs(x_acc) +  fabs(y_acc) +  fabs(z_acc); 
 			attitude_t att = estimate_attitude(x_acc, y_acc, z_acc);
 
-			printf("AccX:%f, AccY:%f, AccZ:%f\n", x_acc, y_acc, z_acc );
+			// printf("AccX:%f, AccY:%f, AccZ:%f\n", x_acc, y_acc, z_acc );
 			printf("AttX:%f, AttY:%f, AttZ:%f\n", att.r, att.p, att.y );
-			printf("As:%f",sum_acc);
+			// printf("As:%f",sum_acc);
 			// printf("Gx:%f, Gy:%f, Gz:%f\n", x_gyr, y_gyr, z_gyr );
 			// printf("T:%3d\n", reading.temp);
 			
@@ -94,7 +94,7 @@ int main(void)
 			// }
 			// putc('\n', stdout);
 
-			for (int i = 0; i < 1000000; i++) /* Wait a bit. */
+			for (int i = 0; i < 100000; i++) /* Wait a bit. */
 			__asm__("nop");
 		}
 	}
